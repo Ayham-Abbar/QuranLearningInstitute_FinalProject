@@ -7,7 +7,7 @@
                     <div class="sidebar-heading">الطالب</div>
                     <ul class="sidebar-menu">
                         <li class="sidebar-menu-item {{ Request::is('/') ? 'active' : '' }}">
-                            <a class="sidebar-menu-button" href="{{ url('/') }}">
+                          <a class="sidebar-menu-button" href="{{ url('/') }}">
                                 <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
                                 <span class="sidebar-menu-text">الصفحة الرئيسية</span>
                             </a>
@@ -44,7 +44,152 @@
                                 <span class="sidebar-menu-text">الصفحة الرئيسية</span>
                             </a>
                         </li>
-                    </ul>
+                        {{-- المستخدمين --}}
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#student_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">person</span>
+                               المستخدمين
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="student_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">عرض المستخدمين</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">إضافة مستخدم</span>
+                                    </a>
+                                </li>
+                            </ul>
+
+                                 {{-- المستويات --}}
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#instructor_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">bar_chart</span>
+                                   المستويات
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="instructor_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">عرض المستويات</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">إضافة مستوى</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                                         {{-- المقررات --}}
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#productivity_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">menu_book</span>
+                               المقررات
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="productivity_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">عرض المقررات</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">إضافة مقرر</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#enterprise_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               الحلقات
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="enterprise_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">عرض الحلقات</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">إضافة حلقة</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- المسابقات --}}
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#ecommerce_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">emoji_events</span>
+                               المسابقات
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="ecommerce_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">عرض المسابقات</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="index.html">
+
+                                        <span class="sidebar-menu-text">إضافة مسابقة</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                                
+                                
+                            </ul>
+                            
                 @endif
             </div>
         </div>
