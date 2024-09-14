@@ -56,9 +56,7 @@
             <option value="teacher" {{ $user->role == 'teacher' ? 'selected' : '' }}>معلم</option>
             <option value="student" {{ $user->role == 'student' ? 'selected' : '' }}>طالب</option>
             <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>مدير</option>
-            <option value="teacher">معلم</option>
-            <option value="student" >طالب</option>
-            <option value="admin">مدير</option>
+            
         </select>
     </div>
 
