@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
@@ -60,6 +61,14 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/level/update/{id}',[LevelController::class,'update'])->name('admin.levels.update');
     Route::delete('/admin/level/destroy/{id}',[LevelController::class,'destroy'])->name('admin.levels.destroy');
     Route::get('/admin/level/show-student/{id}',[LevelController::class,'showStudents'])->name('admin.levels.show-student');
+
+    // Courses
+    Route::get('/admin/course',[CourseController::class,'index'])->name('admin.courses.index');
+    Route::get('/admin/course/create',[CourseController::class,'create'])->name('admin.courses.create');
+    Route::post('/admin/course/store',[CourseController::class,'store'])->name('admin.courses.store');
+    Route::get('/admin/course/edit/{id}',[CourseController::class,'edit'])->name('admin.courses.edit');
+    Route::put('/admin/course/update/{id}',[CourseController::class,'update'])->name('admin.courses.update');
+    Route::delete('/admin/course/destroy/{id}',[CourseController::class,'destroy'])->name('admin.courses.destroy');
 });
 
 require __DIR__.'/auth.php';

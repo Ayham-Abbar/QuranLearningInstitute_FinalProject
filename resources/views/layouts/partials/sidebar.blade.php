@@ -115,14 +115,14 @@
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.courses.index') }}">
 
                                         <span class="sidebar-menu-text">عرض المقررات</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.courses.create') }}">
 
                                         <span class="sidebar-menu-text">إضافة مقرر</span>
                                     </a>
