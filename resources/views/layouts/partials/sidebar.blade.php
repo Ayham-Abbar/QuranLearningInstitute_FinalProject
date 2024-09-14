@@ -58,14 +58,14 @@
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{Url('admin/user')}}">
 
                                         <span class="sidebar-menu-text">عرض المستخدمين</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{url('admin/user/create')}}">
 
                                         <span class="sidebar-menu-text">إضافة مستخدم</span>
                                     </a>
