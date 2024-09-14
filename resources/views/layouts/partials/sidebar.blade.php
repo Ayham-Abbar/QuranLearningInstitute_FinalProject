@@ -86,14 +86,14 @@
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.levels.index') }}">
 
                                         <span class="sidebar-menu-text">عرض المستويات</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.levels.create') }}">
 
                                         <span class="sidebar-menu-text">إضافة مستوى</span>
                                     </a>

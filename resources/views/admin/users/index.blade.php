@@ -1,10 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="card mb-32pt">
-      <div class="table-responsive"
-           data-toggle="lists"
-           data-lists-sort-by="js-lists-values-name"
+    <div class="card-header">
+        <h4>المستخدمين</h4>
+    </div>
+    <div class="table-responsive"
+         data-toggle="lists"
+         data-lists-sort-by="js-lists-values-name"
            data-lists-sort-desc="true"
            data-lists-values='["js-lists-values-name", "js-lists-values-email", "js-lists-values-role", "js-lists-values-status", "js-lists-values-image", "js-lists-values-phone"]'>
   

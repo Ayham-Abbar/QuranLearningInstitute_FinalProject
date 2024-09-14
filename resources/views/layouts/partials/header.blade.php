@@ -26,10 +26,12 @@ data-fixed>
 
            <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
 
-               <span class="avatar-title rounded bg-primary">
-                    <img src="{{ asset('public/images/illustration/student/128/white.svg') }}"
+               <span class="avatar-title rounded ">
+                    <img src="{{ asset('images/logo/1.png') }}"
                         alt="logo"
-                        class="img-fluid" />
+                        class="img-fluid " 
+                        style="width: 50px; height: 50px;"
+                        />
                 </span>
 
            </span>
@@ -81,6 +83,7 @@ data-fixed>
                             <span class="avatar-title rounded-circle bg-primary">
                                 <img src="{{ asset('images/users/'.Auth::user()->image) }}" alt="avatar" style="width: 56px; height: 56px; border-radius: 50%;">
                             </span>
+
                             
                         </span>
 

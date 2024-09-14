@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container page__container">
+{{-- <div class="container page__container"> --}}
+    <div class="card mb-32pt">
+        <div class="card-header">
+            <h4>إنشاء مستخدم</h4>
+        </div>
 <form method="POST" action="{{ url('admin/user/store') }}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -93,5 +97,7 @@
 
     <button class="btn btn-primary mb-3">إنشاء حساب</button>
 </form>
-</div>
+    </div>
+    
+
 @endsection
