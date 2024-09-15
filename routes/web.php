@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\GroupController;
 use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
@@ -69,6 +70,17 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/course/edit/{id}',[CourseController::class,'edit'])->name('admin.courses.edit');
     Route::put('/admin/course/update/{id}',[CourseController::class,'update'])->name('admin.courses.update');
     Route::delete('/admin/course/destroy/{id}',[CourseController::class,'destroy'])->name('admin.courses.destroy');
+
+    // Groups
+    Route::get('/admin/group',[GroupController::class,'index'])->name('admin.groups.index');
+    Route::get('/admin/group/create',[GroupController::class,'create'])->name('admin.groups.create');
+    Route::post('/admin/group/store',[GroupController::class,'store'])->name('admin.groups.store');
+    Route::get('/admin/group/edit/{id}',[GroupController::class,'edit'])->name('admin.groups.edit');
+    Route::put('/admin/group/update/{id}',[GroupController::class,'update'])->name('admin.groups.update');
+    Route::delete('/admin/group/destroy/{id}',[GroupController::class,'destroy'])->name('admin.groups.destroy');
+    Route::get('/admin/group/show-student/{id}',[GroupController::class,'showStudents'])->name('admin.groups.show-student');
+    Route::get('/admin/group/show-teacher/{id}',[GroupController::class,'showTeachers'])->name('admin.groups.show-teacher');
+    Route::delete('/admin/group/show-student/destroy/{group_id}/{student_id}',[GroupController::class,'destroyStudent'])->name('admin.groups.show-student.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -127,6 +127,7 @@ class CourseController extends Controller
     {
         $course = Course::find($id);
         $course->delete();
+        $course->users()->detach();
         return redirect()->route('admin.courses.index')->with('success', 'Course deleted successfully');
     }
 }

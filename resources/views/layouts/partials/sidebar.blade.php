@@ -143,14 +143,14 @@
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.groups.index') }}">
 
                                         <span class="sidebar-menu-text">عرض الحلقات</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.groups.create') }}">
 
                                         <span class="sidebar-menu-text">إضافة حلقة</span>
                                     </a>
