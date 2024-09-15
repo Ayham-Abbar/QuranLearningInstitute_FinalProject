@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container page__container">
 <form method="POST" action="{{ route('admin.users.update', $user->id) }}" enctype="multipart/form-data">
     @csrf

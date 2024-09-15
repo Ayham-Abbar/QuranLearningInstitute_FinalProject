@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use App\Models\Level;
 use Illuminate\Http\Request;
 
@@ -81,8 +82,10 @@ class LevelController extends Controller
     }
     public function showStudents($id)
     {
-        $level = Level::find($id);
-        $users = $level->users;
-        return view('admin.levels.show-student', compact('users','level'));
+        // $level = Level::find($id);
+        // $users = $level->users;
+        $groups = Group::where('level_id', $id)->with('users')->get();
+        return $groups;
+        // return view('admin.levels.show-student', compact('groups','level'));
     }
 }

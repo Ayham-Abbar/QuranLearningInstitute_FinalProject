@@ -15,6 +15,11 @@
           <table class="table mb-0 thead-border-top-0 table-nowrap">
               <thead>
                   <tr>
+                    <th>
+                        <a href="javascript:void(0)"
+                           class="sort"
+                              data-sort="js-lists-values-name">#</a>
+                    </th>
                       <th>
                           <a href="javascript:void(0)"
                              class="sort"
@@ -63,17 +68,7 @@
                   @foreach ($users as $user)
                       @if ($user->role != 'admin')
                       <tr>
-                          {{-- <td class="pr-0">
-                              <div class="custom-control custom-checkbox">
-                                  <input type="checkbox"
-                                         class="custom-control-input js-check-selected-row"
-                                         id="customCheck1_employees1">
-                                  <label class="custom-control-label"
-                                         for="customCheck1_employees1"><span class="text-hide">Check</span></label>
-                              </div>
-                          </td> --}}
-              
-                          <!-- Add the rest of the columns here -->
+                          <td class="js-lists-values-name">{{$user->id}}</td>
                           <td class="js-lists-values-name">{{$user->name}}</td>
                           <td class="js-lists-values-email">{{$user->email}}</td>
                           <td class="js-lists-values-role">{{$user->role}}</td>
