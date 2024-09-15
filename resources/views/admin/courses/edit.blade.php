@@ -17,7 +17,7 @@
                   
                   <div class="form-group">
                       <label class="form-label" for="file">الملف</label>
-                      <input id="file" type="file" class="form-control" name="file" accept="application/pdf" required value="{{ $course->file }}" >
+                      <input id="file" type="file" class="form-control" name="file" accept="application/pdf"  value="{{ $course->file }}" >
                   </div>
                   
                   <div class="form-group">

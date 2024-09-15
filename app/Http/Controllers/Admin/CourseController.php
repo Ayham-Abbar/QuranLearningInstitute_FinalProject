@@ -101,20 +101,38 @@ class CourseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'file' => 'required|file|mimes:pdf|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'file|mimes:pdf|max:2048',
             'level_id' => 'required|exists:levels,id',
             'teacher_id' => 'required|exists:users,id',
         ]);
+        if ($request->hasFile('file')) {
+            $fileName = time() . '.' . $request->file('file')->getClientOriginalName();
+    
+            // تخزين الملف في مجلد 'public/uploads'
+            $filePath = $request->file('file')->move(public_path('uploads'), $fileName);
+            $validatedData['file'] = $fileName;
+        }
+            else{
+                $validatedData['file'] = $course->file;
+            }
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images/courses'), $imageName);
+            $validatedData['image'] = $imageName;
+        }
+        else{
+            $validatedData['image'] = $course->image;
+        }
         $course->update([
             'name'=>$validatedData['name'],
             'description'=>$validatedData['description'],
             'level_id'=>$validatedData['level_id'],
-
             // ملاحظة: لا يمكن تحميل ملف جديد في الملف الحالي
-            // 'file'=>$validatedData['file'],
+            'file'=>$validatedData['file'],
             // ملاحظة: لا يمكن تحميل صورة جديدة في الملف الحالي
-            // 'image'=>$validatedData['image'],
+            'image'=>$validatedData['image'],
         ]);
         $course->users()->sync($validatedData['teacher_id']);
         return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully');
