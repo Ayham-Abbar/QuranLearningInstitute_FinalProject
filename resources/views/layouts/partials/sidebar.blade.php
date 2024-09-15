@@ -34,6 +34,51 @@
                                 <span class="sidebar-menu-text">الصفحة الرئيسية</span>
                             </a>
                         </li>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#student_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
+                                الطلاب
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="student_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{Url('admin/user')}}">
+
+                                        <span class="sidebar-menu-text">عرض الطلاب</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <li class="sidebar-menu-item">
+                                <a class="sidebar-menu-button js-sidebar-collapse"
+                                   data-toggle="collapse"
+                                   href="#group_menu">
+                                   <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">video_library</span>
+الدروس                                    <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                </a>
+                                <ul class="sidebar-submenu collapse sm-indent"
+                                    id="group_menu">
+    
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{Url('admin/user')}}">
+    
+                                            <span class="sidebar-menu-text">عرض الدروس</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           href="{{url('admin/user/create')}}">
+    
+                                            <span class="sidebar-menu-text">إضافة درس</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                     </ul>
                 @elseif(Auth::user()?->role == 'admin')
                     <div class="sidebar-heading">المدير</div>
