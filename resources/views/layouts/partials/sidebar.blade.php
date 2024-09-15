@@ -28,12 +28,56 @@
                 @elseif(Auth::user()?->role == 'teacher')
                     <div class="sidebar-heading">المعلم</div>
                     <ul class="sidebar-menu">
-                        <li class="sidebar-menu-item {{ Request::is('/') ? 'active' : '' }}">
-                            <a class="sidebar-menu-button" href="{{ url('/') }}">
-                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
-                                <span class="sidebar-menu-text">الصفحة الرئيسية</span>
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#enterprise_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               الطلاب
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
                             </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="enterprise_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('teacher.users.index') }}">
+
+                                        <span class="sidebar-menu-text">عرض طلابي</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
+
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#ecommerce_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               الامتحانات
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="ecommerce_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('teacher.exams.index') }}">
+
+                                        <span class="sidebar-menu-text">عرض الامتحانات</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('teacher.exams.create') }}">
+
+                                        <span class="sidebar-menu-text">إضافة امتحان</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 @elseif(Auth::user()?->role == 'admin')
                     <div class="sidebar-heading">المدير</div>
@@ -158,7 +202,6 @@
                             </ul>
                         </li>
 
-                        {{-- الامتحانات --}}
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"
@@ -177,13 +220,13 @@
                                         <span class="sidebar-menu-text">عرض الامتحانات</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-menu-item">
+                                {{-- <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
                                        href="{{ route('admin.exams.create') }}">
 
                                         <span class="sidebar-menu-text">إضافة امتحان</span>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                     </ul>

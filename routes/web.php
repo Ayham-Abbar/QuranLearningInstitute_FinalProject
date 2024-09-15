@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\teacher\ExamController as TeacherExamController;
+use App\Http\Controllers\teacher\UserController as TeacherUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,7 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 Route::middleware('admin')->group(function () {
     // Users
@@ -101,6 +103,30 @@ Route::middleware('admin')->group(function () {
     Route::put('/admin/options/update/{id}', [ExamController::class, 'updateOption'])->name('admin.options.update');
     Route::delete('/admin/options/destroy/{id}', [ExamController::class, 'destroyOption'])->name('admin.options.destroy');
 
+});
+
+Route::middleware('teacher')->group(function () {
+    Route::get('/teacher/users', [TeacherUserController::class, 'index'])->name('teacher.users.index');
+
+       // Exams
+       Route::get('/teacher/exam',[TeacherExamController::class,'index'])->name('teacher.exams.index');
+       Route::get('/teacher/exam/create',[TeacherExamController::class,'create'])->name('teacher.exams.create');
+       Route::post('/teacher/exam/store',[TeacherExamController::class,'store'])->name('teacher.exams.store');
+       Route::get('/teacher/exam/show/{id}',[TeacherExamController::class,'show'])->name('teacher.exams.show');
+       Route::get('/teacher/exam/edit/{id}',[TeacherExamController::class,'edit'])->name('teacher.exams.edit');
+       Route::put('/teacher/exam/update/{id}',[TeacherExamController::class,'update'])->name('teacher.exams.update');
+       Route::delete('/teacher/exam/destroy/{id}',[TeacherExamController::class,'destroy'])->name('teacher.exams.destroy');
+   
+        // الأسئلة
+       Route::post('/teacher/questions/store', [TeacherExamController::class, 'storeQuestion'])->name('teacher.questions.store');
+       Route::put('/teacher/questions/update/{id}', [TeacherExamController::class, 'updateQuestion'])->name('teacher.questions.update');
+       Route::delete('/teacher/questions/destroy/{id}', [TeacherExamController::class, 'destroyQuestion'])->name('teacher.questions.destroy');
+   
+        // الخيارات
+       Route::post('/teacher/options/store', [TeacherExamController::class, 'storeOption'])->name('teacher.options.store');
+       Route::put('/teacher/options/update/{id}', [TeacherExamController::class, 'updateOption'])->name('teacher.options.update');
+       Route::delete('/teacher/options/destroy/{id}', [TeacherExamController::class, 'destroyOption'])->name('teacher.options.destroy');
+   
 });
 
 require __DIR__.'/auth.php';

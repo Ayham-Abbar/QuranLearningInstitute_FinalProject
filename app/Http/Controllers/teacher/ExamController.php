@@ -1,28 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\teacher;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Exam;
 use App\Models\Level;
-use App\Models\Option;
 use App\Models\Question;
-use Illuminate\Http\Request;
+use App\Models\Option;
 
 class ExamController extends Controller
 {
     public function index()
-    {
-        #test
-        $exams = Exam::with('level')->get(); // استرداد الامتحانات مع المستويات
-        return view('admin.exams.index', compact('exams'));
+    {      
+        $teacher = auth()->user();
+        $courses = $teacher->courses;
+        $levels = [];
+        foreach ($courses as $course) {
+            $levels[] = $course->level;
+        }
+        $levelIds = array_map(function($level) {
+            return $level['id']; // Or $level->id if it's an object
+        }, $levels);
+
+        $exams = Exam::with('level')
+            ->whereIn('level_id', $levelIds)  // Filter exams by level_ids
+            ->get();
+
+        return view('teacher.exams.index', compact('exams'));
     }
 
 
     public function create()
     {
-        $levels = Level::all();
-        return view('admin.exams.create', compact('levels'));
+        $teacher = auth()->user();
+        $courses = $teacher->courses;
+        $levels = [];
+        foreach ($courses as $course) {
+            $levels[] = $course->level;
+        }
+        return view('teacher.exams.create', compact('levels'));
     }
 
 
@@ -34,9 +51,9 @@ class ExamController extends Controller
             'level_id' => 'required|exists:levels,id',
         ]);
 
-        $exam = Exam::create($request->all());
+        Exam::create($request->all());
 
-        return redirect()->route('admin.exams.index')->with('success', 'تم إضافة الامتحان بنجاح');
+        return redirect()->route('teacher.exams.index')->with('success', 'تم إضافة الامتحان بنجاح');
     }
 
 
@@ -45,14 +62,14 @@ class ExamController extends Controller
         // تحميل الأسئلة مع الخيارات المتعلقة بهذا الامتحان
         $exam = Exam::find($id);
         $exam->load('questions.options');
-        return view('admin.exams.show', compact('exam'));
+        return view('teacher.exams.show', compact('exam'));
     }
 
 
     public function edit(string $id)
     {
         $exam = Exam::find($id);
-        return view('admin.exams.edit', compact('exam'));
+        return view('teacher.exams.edit', compact('exam'));
     }
 
 
@@ -68,7 +85,7 @@ class ExamController extends Controller
 
         $exam->update($validated);
 
-        return redirect()->route('admin.exams.index')->with('success', 'تم تحديث الامتحان بنجاح');
+        return redirect()->route('teacher.exams.index')->with('success', 'تم تحديث الامتحان بنجاح');
     }
 
 
@@ -78,7 +95,7 @@ class ExamController extends Controller
         $exam = Exam::find($id);
         $exam->delete();
 
-        return redirect()->route('admin.exams.index')->with('success', 'تم حذف الامتحان بنجاح');
+        return redirect()->route('teacher.exams.index')->with('success', 'تم حذف الامتحان بنجاح');
     }
 
 
@@ -92,7 +109,7 @@ class ExamController extends Controller
 
         $question->update($request->only('text'));
 
-        return redirect()->route('admin.exams.show', $question->exam_id)
+        return redirect()->route('teacher.exams.show', $question->exam_id)
                         ->with('success', 'تم تعديل السؤال بنجاح');
     }
 
@@ -102,7 +119,7 @@ class ExamController extends Controller
         $examId = $question->exam_id;
         $question->delete();
 
-        return redirect()->route('admin.exams.show', $examId)
+        return redirect()->route('teacher.exams.show', $examId)
                         ->with('success', 'تم حذف السؤال بنجاح');
     }
 
@@ -115,7 +132,7 @@ class ExamController extends Controller
 
         Question::create($request->only('text', 'exam_id'));
 
-        return redirect()->route('admin.exams.show', $request->exam_id)
+        return redirect()->route('teacher.exams.show', $request->exam_id)
                     ->with('success', 'تم إضافة السؤال بنجاح');
     }
 
@@ -138,7 +155,7 @@ class ExamController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.exams.show', $question->exam_id)
+        return redirect()->route('teacher.exams.show', $question->exam_id)
                         ->with('success', 'تم إضافة الخيارات بنجاح');
     }
 
@@ -152,7 +169,7 @@ class ExamController extends Controller
 
         $option->update($request->only('text'));
 
-        return redirect()->route('admin.exams.show', $option->question->exam_id)
+        return redirect()->route('teacher.exams.show', $option->question->exam_id)
                         ->with('success', 'تم تعديل الخيار بنجاح');
     }
 
@@ -162,8 +179,7 @@ class ExamController extends Controller
         $examId = $option->question->exam_id;
         $option->delete();
 
-        return redirect()->route('admin.exams.show', $examId)
+        return redirect()->route('teacher.exams.show', $examId)
                         ->with('success', 'تم حذف الخيار بنجاح');
     }
-
 }

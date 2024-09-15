@@ -37,8 +37,8 @@ class CourseController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'file' => 'required|file|mimes:pdf|max:2048',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'file|mimes:pdf|max:2048',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'level_id' => 'required|exists:levels,id',
             'teacher_id' => 'required|exists:users,id',
         ]);
@@ -49,19 +49,19 @@ class CourseController extends Controller
             // تخزين الملف في مجلد 'public/uploads'
             $filePath = $request->file('file')->move(public_path('uploads'), $fileName);
             $validatedData['file'] = $fileName;
+        } else {
+            $validatedData['file'] = null;
         }
-        else{
-            return back()->withErrors('حدث خطأ أثناء رفع الملف');
-        }
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time().'.'.$image->getClientOriginalExtension();
             $image->move(public_path('images/courses'), $imageName);
             $validatedData['image'] = $imageName;
+        } else {
+            $validatedData['image'] = null;
         }
-        else{
-            $imageName = null;
-        }
+        
         $course = Course::create([
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
