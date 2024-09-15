@@ -158,13 +158,13 @@
                             </ul>
                         </li>
 
-                        {{-- المسابقات --}}
+                        {{-- الامتحانات --}}
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"
                                href="#ecommerce_menu">
-                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">emoji_events</span>
-                               المسابقات
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               الامتحانات
                                 <span class="ml-auto sidebar-menu-toggle-icon"></span>
                             </a>
                             <ul class="sidebar-submenu collapse sm-indent"
@@ -172,23 +172,21 @@
 
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.exams.index') }}">
 
-                                        <span class="sidebar-menu-text">عرض المسابقات</span>
+                                        <span class="sidebar-menu-text">عرض الامتحانات</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-menu-item">
                                     <a class="sidebar-menu-button"
-                                       href="index.html">
+                                       href="{{ route('admin.exams.create') }}">
 
-                                        <span class="sidebar-menu-text">إضافة مسابقة</span>
+                                        <span class="sidebar-menu-text">إضافة امتحان</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
-                                
-                                
-                            </ul>
+                    </ul>
                             
                 @endif
             </div>

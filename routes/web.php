@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\ExamController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,6 +81,26 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/group/show-student/{id}',[GroupController::class,'showStudents'])->name('admin.groups.show-student');
     Route::get('/admin/group/show-teacher/{id}',[GroupController::class,'showTeachers'])->name('admin.groups.show-teacher');
     Route::delete('/admin/group/show-student/destroy/{group_id}/{student_id}',[GroupController::class,'destroyStudent'])->name('admin.groups.show-student.destroy');
+
+    // Exams
+    Route::get('/admin/exam',[ExamController::class,'index'])->name('admin.exams.index');
+    Route::get('/admin/exam/create',[ExamController::class,'create'])->name('admin.exams.create');
+    Route::post('/admin/exam/store',[ExamController::class,'store'])->name('admin.exams.store');
+    Route::get('/admin/exam/show/{id}',[ExamController::class,'show'])->name('admin.exams.show');
+    Route::get('/admin/exam/edit/{id}',[ExamController::class,'edit'])->name('admin.exams.edit');
+    Route::put('/admin/exam/update/{id}',[ExamController::class,'update'])->name('admin.exams.update');
+    Route::delete('/admin/exam/destroy/{id}',[ExamController::class,'destroy'])->name('admin.exams.destroy');
+
+     // الأسئلة
+    Route::post('/admin/questions/store', [ExamController::class, 'storeQuestion'])->name('admin.questions.store');
+    Route::put('/admin/questions/update/{id}', [ExamController::class, 'updateQuestion'])->name('admin.questions.update');
+    Route::delete('/admin/questions/destroy/{id}', [ExamController::class, 'destroyQuestion'])->name('admin.questions.destroy');
+
+     // الخيارات
+    Route::post('/admin/options/store', [ExamController::class, 'storeOption'])->name('admin.options.store');
+    Route::put('/admin/options/update/{id}', [ExamController::class, 'updateOption'])->name('admin.options.update');
+    Route::delete('/admin/options/destroy/{id}', [ExamController::class, 'destroyOption'])->name('admin.options.destroy');
+
 });
 
 require __DIR__.'/auth.php';
