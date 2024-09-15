@@ -87,5 +87,6 @@ class LevelController extends Controller
         $groups = Group::where('level_id', $id)->with('users')->get();
         $users=$groups->pluck('users')->flatten();
         return view('admin.levels.show-student', compact('users','level'));
+
     }
 }

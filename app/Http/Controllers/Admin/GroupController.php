@@ -103,7 +103,7 @@ class GroupController extends Controller
             'description' => $validated['description'],
             'level_id' => $validated['level_id'],
         ]);
-        $group->users()->sync($validated['user_ids']);
+        $group->users()->attach($validated['user_ids']);
         return redirect()->route('admin.groups.index');
     }
 
