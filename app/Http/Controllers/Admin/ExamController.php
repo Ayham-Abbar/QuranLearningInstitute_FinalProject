@@ -13,6 +13,7 @@ class ExamController extends Controller
 {
     public function index()
     {
+        #test
         $exams = Exam::with('level')->get(); // استرداد الامتحانات مع المستويات
         return view('admin.exams.index', compact('exams'));
     }
