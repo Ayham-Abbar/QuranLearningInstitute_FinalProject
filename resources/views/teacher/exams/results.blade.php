@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>نتائج الطلاب للامتحان: {{ $exam->name }}</h1>
+    <h1>نتائج الطلاب للامتحان: {{ $exam->name }} </h1>
 
     @if($students->isEmpty())
         <p>لا يوجد طلاب مشاركين في هذا الامتحان.</p>
