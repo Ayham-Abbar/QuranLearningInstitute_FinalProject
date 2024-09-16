@@ -182,4 +182,14 @@ class ExamController extends Controller
         return redirect()->route('teacher.exams.show', $examId)
                         ->with('success', 'تم حذف الخيار بنجاح');
     }
+
+    public function results($examId)
+    {
+        $exam = Exam::findOrFail($examId);
+
+        $students = $exam->users()->get();
+
+        return view('teacher.exams.results', compact('exam', 'students'));
+    }
+
 }

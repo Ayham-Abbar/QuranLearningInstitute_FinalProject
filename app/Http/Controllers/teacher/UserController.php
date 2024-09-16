@@ -25,7 +25,9 @@ class UserController extends Controller
         $students = [];
         foreach ($groups as $group) {
             foreach ($group->users->where('role', 'student') as $user) {
-                $students[] = $user;
+                if (!in_array($user->id, array_column($students, 'id'))) {
+                    $students[] = $user;
+                }
             }
         }
 

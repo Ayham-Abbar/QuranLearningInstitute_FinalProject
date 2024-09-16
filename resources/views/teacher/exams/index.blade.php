@@ -36,6 +36,8 @@
                         </form>
 
                         <a href="{{ route('teacher.exams.show', $exam->id) }}" class="btn btn-info">عرض</a>
+                        
+                        <a href="{{ route('teacher.exams.results', $exam->id) }}" class="btn btn-success">عرض النتائج</a>
                     </td>
                 </tr>
             @endforeach

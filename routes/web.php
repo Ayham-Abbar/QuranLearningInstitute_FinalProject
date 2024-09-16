@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\student\ExamController as StudentExamController;
 use App\Http\Controllers\teacher\ExamController as TeacherExamController;
 use App\Http\Controllers\teacher\UserController as TeacherUserController;
 
@@ -105,6 +106,13 @@ Route::middleware('admin')->group(function () {
 
 });
 
+Route::middleware('student')->group(function () {
+    Route::get('/student/exams', [StudentExamController::class, 'index'])->name('student.exams.index');
+    Route::get('/student/exams/{id}', [StudentExamController::class, 'show'])->name('student.exams.show');
+    Route::post('/student/exams/{id}/submit', [StudentExamController::class, 'submit'])->name('student.exams.submit');
+
+});
+
 Route::middleware('teacher')->group(function () {
     Route::get('/teacher/users', [TeacherUserController::class, 'index'])->name('teacher.users.index');
 
@@ -126,7 +134,8 @@ Route::middleware('teacher')->group(function () {
        Route::post('/teacher/options/store', [TeacherExamController::class, 'storeOption'])->name('teacher.options.store');
        Route::put('/teacher/options/update/{id}', [TeacherExamController::class, 'updateOption'])->name('teacher.options.update');
        Route::delete('/teacher/options/destroy/{id}', [TeacherExamController::class, 'destroyOption'])->name('teacher.options.destroy');
-   
+
+       route::get('teacher/exams/{exam}/results', [TeacherExamController::class, 'results'])->name('teacher.exams.results');
 });
 
 require __DIR__.'/auth.php';

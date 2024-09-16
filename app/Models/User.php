@@ -80,6 +80,8 @@ class User extends Authenticatable
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(Exam::class)
+                    ->withPivot('score', 'is_submitted')
+                    ->withTimestamps();
     }
 }

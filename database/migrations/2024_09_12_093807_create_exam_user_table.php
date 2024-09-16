@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('exam_id')->constrained('exams')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->integer('score')->default(0);
+            $table->boolean('is_submitted')->default(false);
             $table->timestamps();
         });
     }
