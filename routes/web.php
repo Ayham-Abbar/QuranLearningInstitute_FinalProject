@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\student\ExamController as StudentExamController;
+use App\Http\Controllers\Student\StudentLessonController;
 use App\Http\Controllers\teacher\ExamController as TeacherExamController;
 use App\Http\Controllers\teacher\UserController as TeacherUserController;
 use App\Http\Controllers\teacher\LessonController as TeacherLessonController;
@@ -112,7 +113,12 @@ Route::middleware('student')->group(function () {
     Route::get('/student/exams/{id}', [StudentExamController::class, 'show'])->name('student.exams.show');
     Route::post('/student/exams/{id}/submit', [StudentExamController::class, 'submit'])->name('student.exams.submit');
 
-});
+    Route::get('/student/lessons', [StudentLessonController::class, 'index'])->name('student.lessons.index');
+    Route::get('/student/lessons/{id}', [StudentLessonController::class, 'show'])->name('student.lessons.show');
+    Route::get('/student/lessons/showLessons/{id}', [StudentLessonController::class, 'showLessons'])->name('student.lessons.showLessons');
+    Route::get('/student/lessons/showVideo/{id}', [StudentLessonController::class, 'showVideo'])->name('student.lessons.showVideo');
+    Route::get('/student/lessons/completeLesson/{id}', [StudentLessonController::class, 'completeLesson'])->name('student.lessons.completeLesson');
+}); 
 
 Route::middleware('teacher')->group(function () {
     Route::get('/teacher/users', [TeacherUserController::class, 'index'])->name('teacher.users.index');
@@ -147,6 +153,7 @@ Route::middleware('teacher')->group(function () {
         Route::delete('/teacher/lesson/destroy/{id}',[TeacherLessonController::class,'destroy'])->name('teacher.lessons.destroy');
 
         Route::get('/teacher/lesson/showLessons/{id}',[TeacherLessonController::class,'show'])->name('teacher.lessons.showLessons');
+        Route::get('/teacher/lesson/showVideo/{id}',[TeacherLessonController::class,'showVideo'])->name('teacher.lessons.showVideo');
 });
 
 require __DIR__.'/auth.php';

@@ -18,6 +18,11 @@
             </div>
 
             <div class="mb-3">
+                <label for="image" class="form-label">رفع الصورة</label>
+                <input type="file" id="image" name="image" class="form-control">
+            </div>
+
+            <div class="mb-3">
                 <label for="video" class="form-label">رفع الفيديو</label>
                 <input type="file" id="video" name="video" class="form-control">
             </div>

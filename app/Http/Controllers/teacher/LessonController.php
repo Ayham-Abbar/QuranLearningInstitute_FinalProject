@@ -35,22 +35,30 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $validatedData = $request->validate([
             'video' => 'required|mimes:mp4,mov,ogg,qt|max:20000', 
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'course_id' => 'required|exists:courses,id',
         ]);
 
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images/lessons'), $imageName);
+            $validatedData['image'] = $imageName;
+        } else {
+            $imageName = null;
+        }
         $videoPath = $request->file('video')->store('videos', 'public');
-
         Lesson::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'course_id' => $request->course_id,
-            'video' => $videoPath,
+            'name'=>$validatedData['name'],
+            'description'=>$validatedData['description'],
+            'course_id'=>$validatedData['course_id'],
+            'video'=>$videoPath,
+            'image'=>$imageName,
         ]);
-
         return back()->with('success', 'Video uploaded successfully!');
     }
 
@@ -63,6 +71,7 @@ class LessonController extends Controller
         $lessons = $course->lessons;
         return view('teacher.lessons.show', compact('lessons'));
     }
+  
 
     /**
      * Show the form for editing the specified resource.
@@ -127,5 +136,6 @@ class LessonController extends Controller
     
         return back()->with('success', 'Video deleted successfully!');
     }
-    
+
+
 }

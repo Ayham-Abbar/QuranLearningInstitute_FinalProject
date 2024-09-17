@@ -21,12 +21,10 @@ class Course extends Model
     {
         return $this->belongsTo(Level::class);
     }
-
     public function users()
     {
         return $this->belongsToMany(User::class);
     }
-
     public function lessons()
     {
         return $this->hasMany(Lesson::class);

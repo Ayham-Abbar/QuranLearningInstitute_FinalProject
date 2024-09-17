@@ -22,19 +22,9 @@
                     <div class="card">
                         <div class="position-relative">
                             {{-- image to video --}}
-                            <a href="{{ route('teacher.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
+                            <a href="{{ route('student.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
                                 <img src="{{ asset('images/lessons/' . $lesson->image) }}" class="card-img-top" alt="Lesson Image">
                             </a>
-                            <!-- Buttons -->
-                            <div class="position-absolute bottom-0 right-0 p-2 d-flex flex-row">
-                              <a href="{{ route('teacher.lessons.edit', $lesson->id) }}" class="btn btn-warning btn-sm me-2">تعديل</a>
-                              <form action="{{ route('teacher.lessons.destroy', $lesson->id) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-danger btn-sm">حذف</button>
-                              </form>
-                          </div>
-                          
                         </div>
                         <!-- Title and Description -->
                         <div class="card-body d-flex flex-column align-items-start">
