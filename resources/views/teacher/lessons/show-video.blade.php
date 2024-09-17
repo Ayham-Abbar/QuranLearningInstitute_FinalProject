@@ -7,7 +7,10 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <!-- العنوان أعلى الفيديو -->
-                        <h1 class="mb-4 font-bold">{{ $lesson->name }}</h1>
+                        <h1 class="mb-4 font-weight-bold d-flex align-items-center" style="font-size: 1.5rem; color: #007bff;">
+                            {{ $lesson->name }}
+                            <i class="fas fa-video ml-2" style="font-size: 1.2rem;"></i>  <!-- أيقونة الفيديو -->
+                        </h1>
                         
                         <!-- الفيديو بارتفاع محدد -->
                         <div class="mb-4">

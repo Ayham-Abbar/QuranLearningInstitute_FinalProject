@@ -63,9 +63,17 @@ class UserController extends Controller
         'phone' => ['required', 'string', 'max:255'],
     ]);
 
+    // التحقق مما إذا كان المستخدم قام بتحميل صورة جديدة
     if ($request->hasFile('image')) {
         $image = $request->file('image');
         $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        // تحقق مما إذا كانت للمستخدم صورة حالية واحذفها إذا كانت موجودة
+        if ($user->image && file_exists(public_path('images/users/' . $user->image))) {
+            unlink(public_path('images/users/' . $user->image));
+        }
+
+        // رفع الصورة الجديدة
         $image->move(public_path('images/users'), $imageName);
         $validatedData['image'] = $imageName;
     } else {
@@ -73,6 +81,7 @@ class UserController extends Controller
         unset($validatedData['image']);
     }
 
+    // إذا كان المستخدم قد أدخل كلمة مرور جديدة، قم بتحديثها
     if ($request->filled('password')) {
         $validatedData['password'] = Hash::make($validatedData['password']);
     } else {
@@ -80,13 +89,18 @@ class UserController extends Controller
         unset($validatedData['password']);
     }
 
+    // تحديث بيانات المستخدم
     $user->update($validatedData);
 
+    // إعادة التوجيه مع رسالة نجاح
     return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
 }
     public function delete($id)
     {
       $user = User::find($id);
+      if ($user->image && file_exists(public_path('images/users/' . $user->image))) {
+        unlink(public_path('images/users/' . $user->image));
+    }
       $user->delete();
       return redirect()->route('admin.users.index');
     }

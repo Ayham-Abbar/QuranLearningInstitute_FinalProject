@@ -65,7 +65,8 @@
                   </tr>
               </thead>
               <tbody class="list" id="employees">
-                  @foreach ($users as $user)
+                @if ($users->where('role', '!=', 'admin')->count() > 0)
+                  @foreach ($users->where('role', '!=', 'admin') as $user)
                       @if ($user->role != 'admin')
                       <tr>
                           <td class="js-lists-values-name">{{$user->id}}</td>
@@ -88,8 +89,12 @@
                       </tr>
                       @endif
                   @endforeach
+                @else
+                <tr>
+                  <td colspan="8" class="text-center">لا يوجد مستخدمين</td>
+                </tr>
+                @endif
               </tbody>
-              
           </table>
       </div>
   </div>

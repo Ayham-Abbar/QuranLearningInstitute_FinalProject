@@ -136,6 +136,10 @@ class LessonController extends Controller
     
         return back()->with('success', 'Video deleted successfully!');
     }
-
+    public function showVideo($id)
+    {
+        $lesson = Lesson::find($id);
+        return view('teacher.lessons.show-video', compact('lesson'));
+    }
 
 }

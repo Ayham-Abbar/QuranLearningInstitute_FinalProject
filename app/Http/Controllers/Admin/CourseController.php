@@ -106,20 +106,43 @@ class CourseController extends Controller
             'level_id' => 'required|exists:levels,id',
             'teacher_id' => 'required|exists:users,id',
         ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time().'.'.$image->getClientOriginalExtension();
+            if ($course->image && file_exists(public_path('images/courses/' . $course->image))) {
+                unlink(public_path('images/courses/' . $course->image));
+            }
+            $image->move(public_path('images/courses'), $imageName);
+            $validatedData['image'] = $imageName;
+        } else {
+            unset($validatedData['image']);
+        }
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            if ($course->file && file_exists(public_path('uploads/' . $course->file))) {
+                unlink(public_path('uploads/' . $course->file));
+            }
+            $file->move(public_path('uploads'), $fileName);
+            $validatedData['file'] = $fileName;
+        }
+        else{
+            unset($validatedData['file']);
+        }
+
         $course->update([
             'name'=>$validatedData['name'],
             'description'=>$validatedData['description'],
+            'image'=>$validatedData['image'],
+            'file'=>$validatedData['file'],
             'level_id'=>$validatedData['level_id'],
-
-            // ملاحظة: لا يمكن تحميل ملف جديد في الملف الحالي
-            // 'file'=>$validatedData['file'],
-            // ملاحظة: لا يمكن تحميل صورة جديدة في الملف الحالي
-            // 'image'=>$validatedData['image'],
-        ]);
+            ]);
         $course->users()->sync($validatedData['teacher_id']);
         return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      */
