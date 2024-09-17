@@ -57,7 +57,7 @@
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"
                                href="#ecommerce_menu">
-                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">assignment</span>
                                الامتحانات
                                 <span class="ml-auto sidebar-menu-toggle-icon"></span>
                             </a>
@@ -76,6 +76,35 @@
                                        href="{{ route('teacher.exams.create') }}">
 
                                         <span class="sidebar-menu-text">إضافة امتحان</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                         {{-- الدروس --}}
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#student_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">videocam</span>
+                               الدروس
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="student_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('teacher.lessons.index') }}">
+
+                                        <span class="sidebar-menu-text">عرض دروسي</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('teacher.lessons.create') }}">
+
+                                        <span class="sidebar-menu-text">إضافة درس</span>
                                     </a>
                                 </li>
                             </ul>

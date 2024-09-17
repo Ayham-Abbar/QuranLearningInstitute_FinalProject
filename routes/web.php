@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\student\ExamController as StudentExamController;
 use App\Http\Controllers\teacher\ExamController as TeacherExamController;
 use App\Http\Controllers\teacher\UserController as TeacherUserController;
+use App\Http\Controllers\teacher\LessonController as TeacherLessonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +137,16 @@ Route::middleware('teacher')->group(function () {
        Route::delete('/teacher/options/destroy/{id}', [TeacherExamController::class, 'destroyOption'])->name('teacher.options.destroy');
 
        route::get('teacher/exams/{exam}/results', [TeacherExamController::class, 'results'])->name('teacher.exams.results');
+
+        // Lessons
+        Route::get('/teacher/lesson',[TeacherLessonController::class,'index'])->name('teacher.lessons.index');
+        Route::get('/teacher/lesson/create',[TeacherLessonController::class,'create'])->name('teacher.lessons.create');
+        Route::post('/teacher/lesson/store',[TeacherLessonController::class,'store'])->name('teacher.lessons.store');
+        Route::get('/teacher/lesson/edit/{id}',[TeacherLessonController::class,'edit'])->name('teacher.lessons.edit');
+        Route::put('/teacher/lesson/update/{id}',[TeacherLessonController::class,'update'])->name('teacher.lessons.update');
+        Route::delete('/teacher/lesson/destroy/{id}',[TeacherLessonController::class,'destroy'])->name('teacher.lessons.destroy');
+
+        Route::get('/teacher/lesson/showLessons/{id}',[TeacherLessonController::class,'show'])->name('teacher.lessons.showLessons');
 });
 
 require __DIR__.'/auth.php';

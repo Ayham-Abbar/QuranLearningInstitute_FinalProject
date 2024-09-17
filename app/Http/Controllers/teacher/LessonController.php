@@ -1,0 +1,131 @@
+<?php
+
+namespace App\Http\Controllers\teacher;
+
+use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Lesson;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class LessonController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $teacher = auth()->user();
+        $courses = $teacher->courses;
+        return view('teacher.lessons.index', compact('courses'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $teacher = auth()->user();
+        $courses = $teacher->courses;
+        return view('teacher.lessons.create', compact('courses'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'video' => 'required|mimes:mp4,mov,ogg,qt|max:20000', 
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'course_id' => 'required|exists:courses,id',
+        ]);
+
+        $videoPath = $request->file('video')->store('videos', 'public');
+
+        Lesson::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+            'video' => $videoPath,
+        ]);
+
+        return back()->with('success', 'Video uploaded successfully!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        $course = Course::find($id);
+        $lessons = $course->lessons;
+        return view('teacher.lessons.show', compact('lessons'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $lesson=Lesson::find($id);
+        $teacher=auth()->user();
+        $courses=$teacher->courses;
+        return view('teacher.lessons.edit',compact('lesson','courses'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, $id)
+    {
+        // ابحث عن الدرس
+        $lesson = Lesson::find($id);
+        // تحقق من وجود فيديو جديد
+        if ($request->hasFile('video')) {
+            // حذف الفيديو القديم إذا لزم الأمر
+            if ($lesson->video) {
+                Storage::disk('public')->delete($lesson->video);
+            }
+    
+            // تحميل الفيديو الجديد
+            $videoPath = $request->file('video')->store('videos', 'public');
+        } else {
+            // الاحتفاظ بالفيديو القديم إذا لم يكن هناك فيديو جديد
+            $videoPath = $lesson->video;
+        }
+    
+        // تحديث معلومات الدرس
+        $lesson->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'course_id' => $request->course_id,
+            'video' => $videoPath,
+        ]);
+    
+        return redirect()->route('teacher.lessons.showLessons',$lesson->course_id)->with('success', 'Video updated successfully!');
+    }
+    
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        // العثور على الدرس
+        $lesson = Lesson::find($id);
+    
+        // تحقق من وجود فيديو
+        if ($lesson->video) {
+            // حذف الفيديو من التخزين
+            Storage::disk('public')->delete($lesson->video);
+        }
+    
+        // حذف الدرس من قاعدة البيانات
+        $lesson->delete();
+    
+        return back()->with('success', 'Video deleted successfully!');
+    }
+    
+}
