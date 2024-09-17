@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12 mb-4">
                   <div class="card-header">
-                    <h4>الدروس</h4>
+                    <h4>دروس {{ $course->name }}</h4>
                 </div>
             </div>
             @if ($lessons->isEmpty())

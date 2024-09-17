@@ -59,7 +59,9 @@ class LessonController extends Controller
             'video'=>$videoPath,
             'image'=>$imageName,
         ]);
-        return back()->with('success', 'Video uploaded successfully!');
+
+        // return back()->with('success', 'Video uploaded successfully!');
+        return redirect()->route('teacher.lessons.showLessons',$validatedData['course_id'])->with('success', 'Video uploaded successfully!');
     }
 
     /**
@@ -69,7 +71,7 @@ class LessonController extends Controller
     {
         $course = Course::find($id);
         $lessons = $course->lessons;
-        return view('teacher.lessons.show', compact('lessons'));
+        return view('teacher.lessons.show', compact('lessons' , 'course'));
     }
   
 
