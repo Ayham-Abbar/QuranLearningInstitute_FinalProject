@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\student\ExamController as StudentExamController;
 use App\Http\Controllers\Student\StudentLessonController;
 use App\Http\Controllers\teacher\ExamController as TeacherExamController;
+use App\Http\Controllers\teacher\HomeworkController;
 use App\Http\Controllers\teacher\UserController as TeacherUserController;
 use App\Http\Controllers\teacher\LessonController as TeacherLessonController;
 
@@ -154,6 +155,13 @@ Route::middleware('teacher')->group(function () {
 
         Route::get('/teacher/lesson/showLessons/{id}',[TeacherLessonController::class,'show'])->name('teacher.lessons.showLessons');
         Route::get('/teacher/lesson/showVideo/{id}',[TeacherLessonController::class,'showVideo'])->name('teacher.lessons.showVideo');
+
+        Route::get('/teacher/lesson/{lesson}/homework', [HomeworkController::class, 'index'])->name('teacher.homework.index');
+        Route::get('/teacher/lesson/{lesson}/homework/create', [HomeworkController::class, 'create'])->name('teacher.homework.create');
+        Route::post('/teacher/lesson/{lesson}/homework/store', [HomeworkController::class, 'store'])->name('teacher.homework.store');
+        Route::get('/teacher/homework/edit/{id}', [HomeworkController::class, 'edit'])->name('teacher.homework.edit');
+        Route::put('/teacher/homework/update/{id}', [HomeworkController::class, 'update'])->name('teacher.homework.update');
+        Route::delete('/teacher/homework/destroy/{id}', [HomeworkController::class, 'destroy'])->name('teacher.homework.destroy');
 });
 
 require __DIR__.'/auth.php';

@@ -217,8 +217,8 @@
                                 </li>
                             </ul>
                         </li>
-
-                                         {{-- المقررات --}}
+                        
+                         {{-- المقررات --}}
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"

@@ -29,7 +29,7 @@ class Lesson extends Model
 
     public function homework()
     {
-        return $this->belongsTo(Homework::class , 'homework_id');
+        return $this->hasOne(Homework::class);
     }
     
 }

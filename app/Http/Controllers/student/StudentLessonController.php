@@ -47,7 +47,6 @@ class StudentLessonController extends Controller
         $lesson->users()->syncWithoutDetaching([
             auth()->user()->id => ['status' => 'attended']
         ]);
-        // return redirect()->route('student.lessons.index')->with('success', 'Lesson completed successfully!');
         return redirect()->route('student.lessons.showLessons',$lesson->course->id)->with('success', 'Lesson completed successfully!');
     }
 }
