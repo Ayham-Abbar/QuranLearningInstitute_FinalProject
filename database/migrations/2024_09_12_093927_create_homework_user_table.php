@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('status', ['pending', 'submitted', 'graded'])->default('pending');
             $table->string('answer')->nullable();
+            $table->string('mark')->nullable()->default('0');
             $table->timestamps();
         });
     }

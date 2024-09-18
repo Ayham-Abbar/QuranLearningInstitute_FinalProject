@@ -24,12 +24,14 @@ class Lesson extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)
+                    ->withPivot('status')
+                    ->withTimestamps();
     }
 
     public function homework()
     {
-        return $this->belongsTo(Homework::class , 'homework_id');
+        return $this->hasOne(Homework::class);
     }
     
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentLessonController extends Controller
 {
@@ -32,7 +33,17 @@ class StudentLessonController extends Controller
     {
         $course = Course::find($id);
         $lessons =$course->lessons;
-        return view('student.lessons.showLessons', compact('course','lessons'));
+        $progress = 0;
+        $size = $lessons->count();
+        $attended = 0;
+        foreach ($lessons as $lesson) {
+            if ($lesson->users()->where('user_id', auth()->user()->id)->wherePivot('status', 'attended')->exists()) {
+                $attended++;
+            }
+        }
+        $progress = ($attended / $size) * 100;
+        $progress = round($progress);
+        return view('student.lessons.showLessons', compact('course','lessons','progress'));
     }
     
     public function showVideo($id)
@@ -47,6 +58,6 @@ class StudentLessonController extends Controller
         $lesson->users()->syncWithoutDetaching([
             auth()->user()->id => ['status' => 'attended']
         ]);
-        return redirect()->route('student.lessons.index')->with('success', 'Lesson completed successfully!');
+        return redirect()->route('student.lessons.showLessons',$lesson->course->id)->with('success', 'Lesson completed successfully!');
     }
 }

@@ -189,7 +189,19 @@ class ExamController extends Controller
 
         $students = $exam->users()->get();
 
-        return view('teacher.exams.results', compact('exam', 'students'));
+        $questions_count = $exam->questions->count();
+        $questions_answered = [];
+        $scores = [];
+        $status = [];
+
+        foreach ($students as $student) {
+            $questions_answered[] = $exam->users()->where('user_id', $student->id)->first()?->pivot->score;
+            $scores[] = round($exam->users()->where('user_id', $student->id)->first()?->pivot->score * 100 / $questions_count, 2);
+            $status[] = $exam->users()->where('user_id', $student->id)->first()?->pivot->is_submitted;
+        }
+
+
+        return view('teacher.exams.results', compact('exam', 'students', 'questions_count', 'questions_answered', 'scores', 'status'));
     }
 
 }

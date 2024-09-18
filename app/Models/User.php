@@ -50,12 +50,16 @@ class User extends Authenticatable
 
     public function homeworks()
     {
-        return $this->belongsToMany(Homework::class , 'homework_user');
+        return $this->belongsToMany(Homework::class , 'homework_user')
+                    ->withPivot('status', 'answer', 'mark')
+                    ->withTimestamps();
     }
 
     public function lessons()
     {
-        return $this->belongsToMany(Lesson::class);
+        return $this->belongsToMany(Lesson::class)
+                    ->withPivot('status')
+                    ->withTimestamps();
     }
 
     public function courses()
