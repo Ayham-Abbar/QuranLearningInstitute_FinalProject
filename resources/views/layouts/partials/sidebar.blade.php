@@ -47,27 +47,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        <li class="sidebar-menu-item">
-                            <a class="sidebar-menu-button js-sidebar-collapse"
-                               data-toggle="collapse"
-                               href="#instructor_menu">
-                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">videocam</span>
-                               الوظائف
-                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
-                            </a>
-                            <ul class="sidebar-submenu collapse sm-indent"
-                                id="instructor_menu">
-
-                                <li class="sidebar-menu-item">
-                                    <a class="sidebar-menu-button"
-                                       href="#">
-
-                                        <span class="sidebar-menu-text">عرض الوظائف</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 @elseif(Auth::user()?->role == 'teacher')
                     <div class="sidebar-heading">المعلم</div>

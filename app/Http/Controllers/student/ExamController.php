@@ -14,9 +14,27 @@ class ExamController extends Controller
     // Show available exams for the student
     public function index()
     {
-        // Fetch exams with the relationship to users (pivot table)
         $exams = Exam::with('users')->get();
-        return view('student.exams.index', compact('exams'));
+        $questions_count = [];
+        $questions_answered = [];
+        $scores = [];
+        $status = [];
+        foreach ($exams as $exam) {
+            if ($exam->questions->count() > 0) {   
+                $questions_count[]= $exam->questions->count();
+                $questions_answered[] = $exam->users()->where('user_id', Auth::id())->first()?->pivot->score;
+                $scores[] = round($exam->users()->where('user_id', Auth::id())->first()?->pivot->score * 100 / $exam->questions->count(), 2);
+                $status[] = $exam->users()->where('user_id', Auth::id())->first()?->pivot->is_submitted;
+            } else {
+                $questions_count[] = 0;
+                $questions_answered[] = 0;
+                $scores[] = 0;
+                $status[] = false;
+            }
+        }
+
+
+        return view('student.exams.index', compact('exams','questions_count','questions_answered','scores','status'));
     }
 
     // Show specific exam with questions

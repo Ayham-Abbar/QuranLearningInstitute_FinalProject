@@ -13,13 +13,15 @@
                     <th>اسم الطالب</th>
                     <th>النتيجة</th>
                     <th>حالة التقديم</th>
+                    <th>عدد الأسئلة</th>
+                    <th>الأسئلة المجابة</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($students as $student)
                     <tr>
                         <td>{{ $student->name }}</td>
-                        <td>{{ $student->pivot->score ?? 'لم يتم التقديم' }}</td>
+                        <td>{{ $scores[$loop->index] ?? 'لم يتم التقديم' }}</td>
                         <td>
                             @if($student->pivot->is_submitted)
                                 <span class="badge bg-success">تم التقديم</span>
@@ -27,6 +29,8 @@
                                 <span class="badge bg-secondary">لم يتم التقديم</span>
                             @endif
                         </td>
+                        <td>{{ $questions_count }}</td>
+                        <td>{{ $questions_answered[$loop->index] }}</td>
                     </tr>
                 @endforeach
             </tbody>
