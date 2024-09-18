@@ -14,7 +14,7 @@
                         
                         <!-- الفيديو بارتفاع محدد -->
                         <div class="mb-4">
-                            <video controls style="width: 100%; height: 400px; object-fit: cover;">
+                            <video controls style="width: 100%; height: 400px; object-fit: contain;">
                                 <source src="{{ asset('storage/' . $lesson->video) }}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>

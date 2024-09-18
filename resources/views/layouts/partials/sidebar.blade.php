@@ -68,6 +68,28 @@
                                 </li>
                             </ul>
                         </li>
+
+                        <li class="sidebar-menu-item">
+                            <a class="sidebar-menu-button js-sidebar-collapse"
+                               data-toggle="collapse"
+                               href="#enterprise_menu">
+                               <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">people</span>
+                               التقييم
+                                <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                            </a>
+                            <ul class="sidebar-submenu collapse sm-indent"
+                                id="enterprise_menu">
+
+                                <li class="sidebar-menu-item">
+                                    <a class="sidebar-menu-button"
+                                       href="{{ route('student.exams.index') }}">
+
+                                        <span class="sidebar-menu-text">عرض التقييم</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
                     </ul>
                 @elseif(Auth::user()?->role == 'teacher')
                     <div class="sidebar-heading">المعلم</div>
