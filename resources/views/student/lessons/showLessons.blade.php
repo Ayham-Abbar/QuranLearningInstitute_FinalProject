@@ -5,7 +5,18 @@
         <div class="row">
             <div class="col-md-12 mb-4">
                 <div class="card-header">
-                    <h4>الدروس</h4>
+                    <h4>دروس مادة {{ $course->name }}</h4>
+                    <div class="progress"
+                        style="height: 20px;">
+                        <div class="progress-bar"
+                            role="progressbar"
+                            style="width: {{ $progress }}%;"
+                            aria-valuenow="{{ $progress }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{ $progress }}%
+                        </div>
+                    </div>
                 </div>
             </div>
             @if ($lessons->isEmpty())
