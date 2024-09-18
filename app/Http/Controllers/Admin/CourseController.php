@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Group;
 use App\Models\Level;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,6 +63,14 @@ class CourseController extends Controller
             $validatedData['image'] = null;
         }
         
+        $groups = Group::where('level_id', $validatedData['level_id'])->with('users')->get();
+        $users = [];
+        foreach ($groups as $group) {
+            foreach ($group->users as $user) {
+                $users[] = $user->id;
+            }
+        }
+
         $course = Course::create([
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
@@ -70,6 +79,7 @@ class CourseController extends Controller
             'level_id' => $validatedData['level_id'],
         ]);
         $course->users()->attach($validatedData['teacher_id']);
+        $course->users()->attach($users);
         return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
     }
 

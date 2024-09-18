@@ -52,13 +52,17 @@ class LessonController extends Controller
             $imageName = null;
         }
         $videoPath = $request->file('video')->store('videos', 'public');
-        Lesson::create([
+        $lesson = Lesson::create([
             'name'=>$validatedData['name'],
             'description'=>$validatedData['description'],
             'course_id'=>$validatedData['course_id'],
             'video'=>$videoPath,
             'image'=>$imageName,
         ]);
+
+        $course = Course::find($validatedData['course_id']);
+        $users = $course->users;
+        $lesson->users()->attach($users);
 
         // return back()->with('success', 'Video uploaded successfully!');
         return redirect()->route('teacher.lessons.showLessons',$validatedData['course_id'])->with('success', 'Video uploaded successfully!');
@@ -143,5 +147,14 @@ class LessonController extends Controller
         $lesson = Lesson::find($id);
         return view('teacher.lessons.show-video', compact('lesson'));
     }
+
+    public function showStudents($lessonId)
+    {
+        $lesson = Lesson::findOrFail($lessonId);
+        $students = $lesson->users()->where('role', 'student')->get(); 
+        
+        return view('teacher.lessons.students', compact('lesson', 'students'));
+    }
+
 
 }

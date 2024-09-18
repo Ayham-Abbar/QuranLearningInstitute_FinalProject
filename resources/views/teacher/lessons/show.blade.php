@@ -44,6 +44,9 @@
                             @else
                                 <a href="{{ route('teacher.homework.create', $lesson->id) }}" class="btn btn-info btn-sm me-2">إضافة وظيفة</a>
                             @endif
+                            <a href="{{ route('teacher.lessons.students', $lesson->id) }}" class="btn btn-success btn-sm">
+                                 الحضور
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -170,6 +170,8 @@ Route::middleware('teacher')->group(function () {
         Route::get('teacher/homework/{homeworkId}/students', [HomeworkController::class, 'showStudents'])->name('teacher.homework.students');
 
         Route::post('teacher/homework/{homeworkId}/student/{studentId}/grade', [HomeworkController::class, 'grade'])->name('teacher.homework.grade');
+
+        Route::get('teacher/lesson/{lesson}/students', [TeacherLessonController::class, 'showStudents'])->name('teacher.lessons.students');
 });
 
 require __DIR__.'/auth.php';
