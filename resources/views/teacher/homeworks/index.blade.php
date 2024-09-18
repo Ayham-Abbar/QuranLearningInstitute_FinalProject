@@ -30,7 +30,11 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">حذف</button>
                         </form>
-                    </div>
+                        <a href="{{ route('teacher.homework.students', $homework->id) }}" class="btn btn-info btn-sm">
+                            عرض الطلاب المشاركين
+                        </a>
+                    </div>                        
+
                 </div>
             </div>
         </div>

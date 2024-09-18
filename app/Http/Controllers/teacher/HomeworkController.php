@@ -5,6 +5,7 @@ namespace App\Http\Controllers\teacher;
 use App\Http\Controllers\Controller;
 use App\Models\Homework;
 use App\Models\Lesson;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -104,4 +105,30 @@ class HomeworkController extends Controller
         return redirect()->route('teacher.lessons.showLessons', $lesson->course->id)
                         ->with('success', 'تم حذف الوظيفة بنجاح.');
     }
+
+
+    public function showStudents($homeworkId)
+    {
+        // جلب جميع الطلاب المرتبطين بالوظيفة سواء قاموا برفع الحل أم لا
+        $homework = Homework::findOrFail($homeworkId);
+        $lesson = $homework->lesson;
+        $students = $lesson->users->where('role', 'student');
+
+        return view('teacher.homeworks.students', compact('homework', 'students'));
+    }
+
+    public function grade(Request $request, $homeworkId, $studentId)
+    {
+        $request->validate([
+            'mark' => 'required|numeric|min:0|max:100',
+        ]);
+
+        $user = User::findOrFail($studentId);
+        $user->homeworks()->updateExistingPivot($homeworkId, [
+            'mark' => $request->mark,
+        ]);
+
+        return back()->with('success', 'تم حفظ العلامة بنجاح.');
+    }
+
 }

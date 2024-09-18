@@ -15,4 +15,11 @@ class Homework extends Model
     {
         return $this->belongsTo(Lesson::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'homework_user')
+                    ->withPivot('status', 'answer', 'mark')
+                    ->withTimestamps();
+    }
 }

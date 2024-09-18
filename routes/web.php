@@ -14,6 +14,7 @@ use App\Http\Controllers\teacher\ExamController as TeacherExamController;
 use App\Http\Controllers\teacher\HomeworkController;
 use App\Http\Controllers\teacher\UserController as TeacherUserController;
 use App\Http\Controllers\teacher\LessonController as TeacherLessonController;
+use App\Http\Controllers\student\HomeworkController as StudentHomeworkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,9 @@ Route::middleware('student')->group(function () {
     Route::get('/student/lessons/showLessons/{id}', [StudentLessonController::class, 'showLessons'])->name('student.lessons.showLessons');
     Route::get('/student/lessons/showVideo/{id}', [StudentLessonController::class, 'showVideo'])->name('student.lessons.showVideo');
     Route::get('/student/lessons/completeLesson/{id}', [StudentLessonController::class, 'completeLesson'])->name('student.lessons.completeLesson');
+
+    Route::get('/student/homework/{id}', [StudentHomeworkController::class, 'show'])->name('student.homework.show');
+    Route::post('/student/homework/{id}/submit', [StudentHomeworkController::class, 'submit'])->name('student.homework.submit');
 }); 
 
 Route::middleware('teacher')->group(function () {
@@ -162,6 +166,10 @@ Route::middleware('teacher')->group(function () {
         Route::get('/teacher/homework/edit/{id}', [HomeworkController::class, 'edit'])->name('teacher.homework.edit');
         Route::put('/teacher/homework/update/{id}', [HomeworkController::class, 'update'])->name('teacher.homework.update');
         Route::delete('/teacher/homework/destroy/{id}', [HomeworkController::class, 'destroy'])->name('teacher.homework.destroy');
+
+        Route::get('teacher/homework/{homeworkId}/students', [HomeworkController::class, 'showStudents'])->name('teacher.homework.students');
+
+        Route::post('teacher/homework/{homeworkId}/student/{studentId}/grade', [HomeworkController::class, 'grade'])->name('teacher.homework.grade');
 });
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-12 mb-4">
-                  <div class="card-header">
+                <div class="card-header">
                     <h4>الدروس</h4>
                 </div>
             </div>
@@ -17,23 +17,30 @@
                     </div>
                 </div>
             @else
-            @foreach ($lessons as $lesson)
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card">
-                        <div class="position-relative">
-                            {{-- image to video --}}
-                            <a href="{{ route('student.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
-                                <img src="{{ asset('images/lessons/' . $lesson->image) }}" class="card-img-top" alt="Lesson Image">
-                            </a>
-                        </div>
-                        <!-- Title and Description -->
-                        <div class="card-body d-flex flex-column align-items-start">
-                              <h5 class="card-title mb-2 fw-bold text-dark">{{ $lesson->name }}</h5>
-                              <p class="card-text mt-auto">{{ $lesson->description }}</p>
+                @foreach ($lessons as $lesson)
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="position-relative">
+                                {{-- image to video --}}
+                                <a href="{{ route('student.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
+                                    <img src="{{ asset('images/lessons/' . $lesson->image) }}" class="card-img-top" alt="Lesson Image">
+                                </a>
+                            </div>
+                            <!-- Title and Description -->
+                            <div class="card-body d-flex flex-column align-items-start">
+                                <h5 class="card-title mb-2 fw-bold text-dark">{{ $lesson->name }}</h5>
+                                <p class="card-text mt-auto">{{ $lesson->description }}</p>
+
+                                <!-- Homework Button -->
+                                @if($lesson->homework)
+                                    <a href="{{ route('student.homework.show', $lesson->homework->id) }}" class="btn btn-primary btn-sm">
+                                        عرض الوظيفة
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
             @endif
         </div>
     </div>
