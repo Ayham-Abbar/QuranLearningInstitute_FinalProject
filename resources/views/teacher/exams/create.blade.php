@@ -23,15 +23,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="level_id" class="form-label">Level</label>
-            <select name="level_id" class="form-control">
-                @foreach($levels as $level)
-                    <option value="{{ $level->id }}">{{ $level->name }}</option>
+            <label for="course_id" class="form-label">Course</label>
+            <select name="course_id" class="form-control">
+                @foreach($courses as $course)
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
                 @endforeach
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">إنشاء</button>
     </form>
 </div>
 @endsection

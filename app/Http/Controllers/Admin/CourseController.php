@@ -79,8 +79,8 @@ class CourseController extends Controller
             'level_id' => $validatedData['level_id'],
         ]);
         $course->users()->attach($validatedData['teacher_id']);
-        $course->users()->attach($users);
-        return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
+        // $course->users()->attach($users);
+        return back()->with('success', 'Course created successfully');
     }
 
     /**

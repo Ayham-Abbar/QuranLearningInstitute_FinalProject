@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\teacher;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use App\Models\Exam;
+use App\Models\Group;
 use App\Models\Level;
 use App\Models\Question;
 use App\Models\Option;
@@ -15,18 +17,12 @@ class ExamController extends Controller
     {      
         $teacher = auth()->user();
         $courses = $teacher->courses;
-        $levels = [];
-        foreach ($courses as $course) {
-            $levels[] = $course->level;
+        $exams=[];  
+       foreach ($courses as $course) {
+            foreach ($course->exams as $exam) {
+                $exams[] = $exam;
+            }
         }
-        $levelIds = array_map(function($level) {
-            return $level['id']; // Or $level->id if it's an object
-        }, $levels);
-
-        $exams = Exam::with('level')
-            ->whereIn('level_id', $levelIds)  // Filter exams by level_ids
-            ->get();
-
         return view('teacher.exams.index', compact('exams'));
     }
 
@@ -35,24 +31,27 @@ class ExamController extends Controller
     {
         $teacher = auth()->user();
         $courses = $teacher->courses;
-        $levels = [];
-        foreach ($courses as $course) {
-            $levels[] = $course->level;
-        }
-        return view('teacher.exams.create', compact('levels'));
+        return view('teacher.exams.create', compact('courses'));
     }
 
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'level_id' => 'required|exists:levels,id',
+            'course_id' => 'required|exists:courses,id',
         ]);
-
-        Exam::create($request->all());
-
+        $exam = Exam::create($validated);
+        $course= Course::find($request->course_id);
+        $level= $course->level;
+        $groups= $level->groups;
+        foreach ($groups as $group) {
+            $users= $group->users;
+            foreach ($users as $user) {
+                $user->exams()->attach($exam->id, ['score' => 0, 'is_submitted' => false]);
+            }
+        }
         return redirect()->route('teacher.exams.index')->with('success', 'تم إضافة الامتحان بنجاح');
     }
 

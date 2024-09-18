@@ -30,7 +30,7 @@ data-fixed>
                     <img src="{{ asset('images/logo/1.png') }}"
                         alt="logo"
                         class="img-fluid " 
-                        style="width: 50px; height: 50px;"
+                        style="width: 60px; height: 60px;"
                         />
                 </span>
 
@@ -57,9 +57,6 @@ data-fixed>
             <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
                 <a href="{{ url('/') }}" class="nav-link">الصفحة الرئيسية</a>
             </li>
-            <li class="nav-item {{ Request::is('test') ? 'active' : '' }}">
-                <a href="{{ url('/test') }}" class="nav-link">القرءان الكريم</a>
-            </li>
         </ul>
     
 
@@ -79,13 +76,13 @@ data-fixed>
                         data-caret="false">
 
                         <span class="avatar avatar-sm mr-8pt2">
-
-                            <span class="avatar-title rounded-circle bg-primary">
-                                <img src="{{ asset('images/users/'.Auth::user()->image) }}" alt="avatar" style="width: 56px; height: 56px; border-radius: 50%;">
+                            <span class="avatar-title" style="background-color: transparent;">
+                                <img src="{{ asset('images/users/'.Auth::user()->image) }}" 
+                                     alt="avatar" 
+                                     class="img-fluid" 
+                                     style="width: 64px; height: 64px; object-fit: cover;">
                             </span>
-
-                            
-                        </span>
+                        </span>                                                                      
 
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

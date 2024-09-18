@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Exam;
 use App\Models\Level;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -21,21 +23,28 @@ class ExamController extends Controller
 
     public function create()
     {
-        $levels = Level::all();
-        return view('admin.exams.create', compact('levels'));
+        $courses = Course::all();
+        return view('admin.exams.create', compact('courses'));
     }
 
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'level_id' => 'required|exists:levels,id',
+            'course_id' => 'required|exists:courses,id',
         ]);
-
-        $exam = Exam::create($request->all());
-
+        $exam = Exam::create($validated);
+        $course= Course::find($request->course_id);
+        $level= $course->level;
+        $groups= $level->groups;
+        foreach ($groups as $group) {
+            $users= $group->users;
+            foreach ($users as $user) {
+                $user->exams()->attach($exam->id, ['score' => 0, 'is_submitted' => false]);
+            }
+        }
         return redirect()->route('admin.exams.index')->with('success', 'تم إضافة الامتحان بنجاح');
     }
 
@@ -61,12 +70,22 @@ class ExamController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'course_id' => 'required|exists:courses,id',
         ]);
 
         $exam = Exam::find($id);
-        $validated['level_id'] = $exam->level_id;
+        $validated['course_id'] = $exam->course_id;
 
         $exam->update($validated);
+        $course= Course::find($request->course_id);
+        $level= $course->level;
+        $groups= $level->groups;
+        foreach ($groups as $group) {
+            $users= $group->users;
+            foreach ($users as $user) {
+                $user->exams()->sync($exam->id, ['score' => 0, 'is_submitted' => false]);
+            }
+        }
 
         return redirect()->route('admin.exams.index')->with('success', 'تم تحديث الامتحان بنجاح');
     }
@@ -77,7 +96,7 @@ class ExamController extends Controller
     {
         $exam = Exam::find($id);
         $exam->delete();
-
+        $exam->users()->detach();
         return redirect()->route('admin.exams.index')->with('success', 'تم حذف الامتحان بنجاح');
     }
 

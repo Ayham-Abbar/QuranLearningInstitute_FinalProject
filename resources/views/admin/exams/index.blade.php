@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Exams</h1>
+    <h1>الإمتحانات</h1>
     <a href="{{ route('admin.exams.create') }}" class="btn btn-primary mb-3">إضافة امتحان</a>
 
     @if(session('success'))
@@ -16,7 +16,7 @@
             <tr>
                 <th>#</th>
                 <th>الاسم</th>
-                <th>المستوى</th>
+                <th>المقرر</th>
                 {{-- <th>العمليات</th> --}}
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{ $exam->id }}</td>
                     <td>{{ $exam->name }}</td>
-                    <td>{{ $exam->level->name }}</td>
+                    <td>{{ $exam->course->name }}</td>
                     {{-- <td>
                         <a href="{{ route('admin.exams.edit', $exam->id) }}" class="btn btn-warning">تعديل</a>
 

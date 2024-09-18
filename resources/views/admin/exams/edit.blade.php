@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Edit Exam</h1>
+    <h1>تعديل الامتحان</h1>
 
     @if($errors->any())
         <div class="alert alert-danger">
@@ -20,12 +20,12 @@
         @method('PUT')
 
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="name" class="form-label">الاسم</label>
             <input type="text" name="name" class="form-control" value="{{ $exam->name }}">
         </div>
 
 
-        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="submit" class="btn btn-primary">تعديل</button>
     </form>
 </div>
 @endsection

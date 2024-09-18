@@ -12,7 +12,7 @@ class Exam extends Model
     protected $fillable = [
         'name',
         'description',
-        'level_id',
+        'course_id',
     ];
 
     public function level()
@@ -30,5 +30,9 @@ class Exam extends Model
     public function questions()
     {
         return $this->hasMany(Question::class);
+    }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }

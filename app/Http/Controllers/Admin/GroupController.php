@@ -95,15 +95,14 @@ class GroupController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
             'level_id' => 'required|exists:levels,id',
-            'user_ids' => 'array',
         ]);
-        $group = Group::find($id);
+        $group = Group::find($id); 
         $group->update([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'level_id' => $validated['level_id'],
         ]);
-        $group->users()->attach($validated['user_ids']);
+        $group->users()->attach($request->user_ids);
         return redirect()->route('admin.groups.index');
     }
 

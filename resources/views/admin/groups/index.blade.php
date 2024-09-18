@@ -35,6 +35,11 @@
                 </tr>
             </thead>
             <tbody class="list" id="groups">
+                @if ($groups->count() == 0)
+                    <tr>
+                        <td colspan="4" class="text-center">لا توجد حلقات</td>
+                    </tr>
+                @endif
                 @foreach ($groups as $group)
                 <tr>
                     <td class="js-lists-values-name">{{ $group->name }}</td>
