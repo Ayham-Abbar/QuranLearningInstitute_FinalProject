@@ -63,13 +63,8 @@ class CourseController extends Controller
             $validatedData['image'] = null;
         }
         
-        $groups = Group::where('level_id', $validatedData['level_id'])->with('users')->get();
-        $users = [];
-        foreach ($groups as $group) {
-            foreach ($group->users as $user) {
-                $users[] = $user->id;
-            }
-        }
+        $level = Level::find($validatedData['level_id']);
+        $users = $level->users->where('role', 'student');
 
         $course = Course::create([
             'name' => $validatedData['name'],
@@ -79,7 +74,7 @@ class CourseController extends Controller
             'level_id' => $validatedData['level_id'],
         ]);
         $course->users()->attach($validatedData['teacher_id']);
-        // $course->users()->attach($users);
+        $course->users()->attach($users);
         return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
     }
 

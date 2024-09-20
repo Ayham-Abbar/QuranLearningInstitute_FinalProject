@@ -51,6 +51,10 @@ class GroupController extends Controller
         $group->users()->attach($user);
         $level->users()->attach($user);
     }
+    $courses = $level->courses;
+    foreach($courses as $course){
+        $course->users()->attach($validated['user_ids']);
+    }
     return redirect()->route('admin.groups.index');
 }
 

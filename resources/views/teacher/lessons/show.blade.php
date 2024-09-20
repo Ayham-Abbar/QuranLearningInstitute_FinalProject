@@ -22,8 +22,12 @@
                     <div class="card">
                         <div class="position-relative">
                             {{-- image to video --}}
-                            <a href="{{ route('teacher.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
-                                <img src="{{ asset('images/lessons/' . $lesson->image) }}" class="card-img-top" alt="Lesson Image">
+                            {{-- <a href="{{ route('teacher.lessons.showVideo', $lesson->id) }}" data-toggle="lightbox" data-gallery="example-gallery">
+                                <img src="{{ asset('images/lessons/' . $lesson->image) }}" class="card-img-top crop"  alt="Lesson Image">
+                            </a> --}}
+
+                            <a href="{{ route('teacher.lessons.showVideo', $lesson->id) }}" class="card-img-top js-image" data-position="" data-height="140">
+                                <img src="{{ asset('images/lessons/'.$lesson->image) }}" alt="subject" class="w-full h-40 object-contain">
                             </a>
                             <!-- Buttons -->                          
                         </div>
