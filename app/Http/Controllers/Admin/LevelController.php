@@ -82,10 +82,10 @@ class LevelController extends Controller
     }
     public function showStudents($id)
     {
-        // $level = Level::find($id);
-        // $users = $level->users;
+        $level = Level::find($id);
+        $users = $level->users;
         $groups = Group::where('level_id', $id)->with('users')->get();
-        return $groups;
-        // return view('admin.levels.show-student', compact('groups','level'));
+        // return $groups;
+        return view('admin.levels.show-student', compact('groups','level'));
     }
 }

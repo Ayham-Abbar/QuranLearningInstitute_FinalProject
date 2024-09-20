@@ -46,8 +46,10 @@ class GroupController extends Controller
         'description' => $validated['description'],
         'level_id' => $validated['level_id'],
     ]);
+    $level = Level::find($validated['level_id']);
     foreach($validated['user_ids'] as $user){ // تعديل هنا
         $group->users()->attach($user);
+        $level->users()->attach($user);
     }
     return redirect()->route('admin.groups.index');
 }
@@ -103,9 +105,10 @@ class GroupController extends Controller
             'level_id' => $validated['level_id'],
         ]);
         $group->users()->attach($request->user_ids);
+        $level = Level::find($validated['level_id']);
+        $level->users()->attach($request->user_ids);
         return redirect()->route('admin.groups.index');
     }
-
     /**
      * Remove the specified resource from storage.
      */
