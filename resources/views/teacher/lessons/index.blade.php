@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <div class="row card-group-row mb-lg-8pt">
+    <div class="row card-group-row mb-lg-8pt" style="margin: 10px;">
       
         @foreach ($courses as $course)
             <div class="col-md-3 card-group-row__col">

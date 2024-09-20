@@ -32,7 +32,11 @@ use App\Http\Controllers\student\HomeworkController as StudentHomeworkController
 //     return view('layouts.app');
 // });
 
-Route::get('/', [DetailsController::class, 'details'])->name('details');
+Route::get('/', function() {
+    return view('home');
+})->name('home');
+
+Route::get('/dashboard', [DetailsController::class, 'details'])->name('dashboard')->middleware('auth');
 
 
 Route::get('/breeze', function () {

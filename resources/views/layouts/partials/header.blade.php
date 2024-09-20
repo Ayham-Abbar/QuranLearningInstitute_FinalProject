@@ -44,7 +44,20 @@ data-fixed>
 
        <!-- Navbar Search -->
 
-       {{-- <form class="search-form navbar-search d-none d-md-flex mr-16pt"
+
+       <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
+            <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
+                @auth
+                    <a href="{{  url('/dashboard') }}" class="nav-link">الصفحة الرئيسية</a>
+                @else
+                    <a href="{{  url('/') }}" class="nav-link">الصفحة الرئيسية</a>
+                @endauth
+            </li>
+
+            
+        </ul>
+    
+       {{-- <form class="search-form navbar-search d-none d-md-flex mr-16pt justify-content-start"
              action="index.html">
            <button class="btn"
                    type="submit"><i class="material-icons">search</i></button>
@@ -53,16 +66,8 @@ data-fixed>
                   placeholder="Search ...">
        </form> --}}
 
-       <ul class="nav navbar-nav d-none d-sm-flex flex justify-content-start ml-8pt">
-            <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                <a href="{{ url('/') }}" class="nav-link">الصفحة الرئيسية</a>
-            </li>
-        </ul>
-    
-
        <!-- // END Navbar Search -->
 
-       <div class="flex"></div>
 
        <!-- Navbar Menu -->
 
@@ -79,8 +84,8 @@ data-fixed>
                             <span class="avatar-title" style="background-color: transparent;">
                                 <img src="{{ asset('images/users/'.Auth::user()->image) }}" 
                                      alt="avatar" 
-                                     class="img-fluid" 
-                                     style="width: 64px; height: 64px; object-fit: cover;">
+                                     class="img-fluid rounded-circle" 
+                                     style="width: 60px; height: 60px; object-fit: cover;">
                             </span>
                         </span>                                                                      
 

@@ -6,6 +6,12 @@
                 @if(Auth::user()?->role == 'student')
                     <div class="sidebar-heading">الطالب</div>
                     <ul class="sidebar-menu">
+                        <li class="sidebar-menu-item {{ Request::is('/dashboard') ? 'active' : '' }}">
+                            <a class="sidebar-menu-button" href="{{ url('/dashboard') }}">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                <span class="sidebar-menu-text">الصفحة الرئيسية</span>
+                            </a>
+                        </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"
@@ -52,6 +58,12 @@
                 @elseif(Auth::user()?->role == 'teacher')
                     <div class="sidebar-heading">المعلم</div>
                     <ul class="sidebar-menu">
+                        <li class="sidebar-menu-item {{ Request::is('/dashboard') ? 'active' : '' }}">
+                            <a class="sidebar-menu-button" href="{{ url('/dashboard') }}">
+                                <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
+                                <span class="sidebar-menu-text">الصفحة الرئيسية</span>
+                            </a>
+                        </li>
                         <li class="sidebar-menu-item">
                             <a class="sidebar-menu-button js-sidebar-collapse"
                                data-toggle="collapse"
@@ -135,8 +147,8 @@
                 @elseif(Auth::user()?->role == 'admin')
                     <div class="sidebar-heading">المدير</div>
                     <ul class="sidebar-menu">
-                        <li class="sidebar-menu-item {{ Request::is('/') ? 'active' : '' }}">
-                            <a class="sidebar-menu-button" href="{{ url('/') }}">
+                        <li class="sidebar-menu-item {{ Request::is('/dashboard') ? 'active' : '' }}">
+                            <a class="sidebar-menu-button" href="{{ url('/dashboard') }}">
                                 <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">home</span>
                                 <span class="sidebar-menu-text">الصفحة الرئيسية</span>
                             </a>
