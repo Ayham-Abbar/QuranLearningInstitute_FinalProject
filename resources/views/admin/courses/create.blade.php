@@ -2,7 +2,7 @@
 @section('content')
 <div class="card mb-32pt">
     <div class="card-header">
-        <h4>إنشاء مادة</h4>
+        <h4>إنشاء مقرر</h4>
     </div>
     <div class="container">
         <div class="row justify-content-center">

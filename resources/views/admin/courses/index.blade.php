@@ -1,12 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <h1>المقررات</h1>
         </div>
     </div>
+    @if ($courses->isEmpty())
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">لا توجد مقررات متاحة.</p>
+            </div>
+        </div>
+    @else
     <div class="row card-group-row mb-lg-8pt">
       
         @foreach ($courses as $course)
@@ -56,5 +64,6 @@
             </div>
         @endforeach
     </div>
+    @endif
 </div>
 @endsection

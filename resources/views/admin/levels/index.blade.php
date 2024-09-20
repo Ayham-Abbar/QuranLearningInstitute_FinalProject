@@ -5,6 +5,13 @@
     <div class="card-header">
         <h4>المستويات</h4>
     </div>
+    @if ($levels->isEmpty())
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">لا توجد مستويات متاحة.</p>
+            </div>
+        </div>
+    @else
     <div class="table-responsive"
          data-toggle="lists"
          data-lists-sort-by="js-lists-values-name"
@@ -30,6 +37,11 @@
                 </tr>
             </thead>
             <tbody class="list" id="levels">
+                @if ($levels->isEmpty())
+                    <tr>
+                        <td colspan="3" class="text-center">لا توجد مستويات متاحة.</td>
+                    </tr>
+                @else
                 @foreach ($levels as $level)
                 <tr>
                     <td class="js-lists-values-name">{{ $level->name }}</td>
@@ -47,11 +59,13 @@
                             </form>
                         </div>
                     </td>
-                </tr>
+                    </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>
+    @endif
 </div>
 
 @endsection

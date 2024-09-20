@@ -231,7 +231,7 @@
                 @endfor
             </div>
         </div>
-        
+        @include('layouts.partials.footer')
         </div>
     </div>
 
