@@ -98,7 +98,7 @@
                                         default="student">
                                     <option value="teacher">معلم</option>
                                     <option value="student" selected >طالب</option>
-                                    <option value="admin">مدير</option>
+                                    {{-- <option value="admin">مدير</option> --}}
                                 </select>
                             </div>
                         

@@ -22,22 +22,21 @@ data-fixed>
        <!-- Navbar Brand -->
 
        <a href="{{ url('/') }}"
-          class="navbar-brand mr-16pt">
+   class="navbar-brand mr-16pt">
 
-           <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
+    <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">
 
-               <span class="avatar-title rounded ">
-                    <img src="{{ asset('images/logo/1.png') }}"
-                        alt="logo"
-                        class="img-fluid " 
-                        style="width: 60px; height: 60px;"
-                        />
-                </span>
+        <span class="avatar-title rounded" style="background-color: transparent;">
+            <img src="{{ asset('images/backround_image/black.svg') }}"
+                 alt="logo"
+                 class="img-fluid"
+                 style="width: 60px; height: 60px;" />
+        </span>
 
-           </span>
+    </span>
 
-           {{-- <span class="d-none d-lg-block">قرءاني</span> --}}
-       </a>
+    {{-- <span class="d-none d-lg-block">قرءاني</span> --}}
+</a>
 
        <!-- // END Navbar Brand -->
 
