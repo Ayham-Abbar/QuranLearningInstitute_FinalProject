@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\DetailsController;
 use App\Http\Controllers\student\ExamController as StudentExamController;
 use App\Http\Controllers\Student\StudentLessonController;
 use App\Http\Controllers\teacher\ExamController as TeacherExamController;
@@ -27,23 +28,18 @@ use App\Http\Controllers\student\HomeworkController as StudentHomeworkController
 |
 */
 
-Route::get('/', function () {
-    return view('layouts.app');
-});
+// Route::get('/', function () {
+//     return view('layouts.app');
+// });
 
-Route::middleware('student')->group(function () {
-    Route::get('/test', function () {
-        return view('test');
-    });
-});
+Route::get('/', [DetailsController::class, 'details'])->name('details');
+
 
 Route::get('/breeze', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -11,7 +11,7 @@
                     <tr>
                         <th>الطالب</th>
                         <th>البريد</th>
-                        <th>الحالة</th>
+                        <th>الحلقة</th>
                         <th>الجنس</th>
                         <th>الموبايل</th>
                         <th>الصورة</th>
@@ -28,11 +28,11 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->status }}</td>
+                            <td>{{ $user->groups[0]->name }}</td>
                             <td>{{ $user->gender }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>
-                                <img src="{{ asset('images/users/' . $user->image) }}" alt="Student Image" style="width: 70px; height: 70px;">
+                                <img src="{{ asset('images/users/' . $user->image) }}" alt="Student Image" style="width: 40px; height: 40px;">
                             </td>
                         </tr>
                     @endif
